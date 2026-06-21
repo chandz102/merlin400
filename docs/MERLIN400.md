@@ -21,22 +21,20 @@ Running on a Raspberry Pi 2/3 (ARMv7) at `192.168.1.130`.
 | OS | Raspbian Bullseye (11) |
 | RAM | 426MB |
 | Storage | 7.2GB SD card |
-| Hostname | m40dec2 |
-| Machine ID | 000000000b40dec2 |
 
 ## Access
 
 ```bash
-ssh merlin400          # key-based alias (no password) — set up 2026-06-18
-# or fallback:
-ssh pi@192.168.1.130   # password: dubqengm  (password login still enabled)
+ssh merlin400          # key-based SSH (configured in ~/.ssh/config)
+# or:
+ssh pi@<PI_IP_ADDRESS>  # password login (credentials stored securely)
 ```
 
-- Key: `~/.ssh/merlin400_ed25519`, alias in `~/.ssh/config`. `scp`/`ssh merlin400 '<cmd>'` work non-interactively.
+- Key-based access configured via `~/.ssh/config`
 - Deploy: `scp <file> merlin400:/home/pi/merlin400-system/src/...` → `ssh merlin400 'sudo systemctl restart merlin400-system'` → verify `/api/status` is Ready/idle/pump 0.
 - Gotchas: `__pycache__` is root-owned (syntax-check with `python3 -c "import ast; ast.parse(...)"`, not `py_compile`); `config.ini` is root-owned **and gitignored** (edit with `sudo`; per-machine, not in repo).
 
-Web API: `http://192.168.1.130/api/status`
+Web API: `http://<PI_IP_ADDRESS>/api/status`
 
 ## Software
 
@@ -71,7 +69,7 @@ sudo journalctl -u merlin400-system -f
 
 ```bash
 # Current status
-curl http://192.168.1.130/api/status
+curl http://<PI_IP_ADDRESS>/api/status
 ```
 
 Key fields in response:

@@ -1,22 +1,22 @@
 # Merlin400 — Codex Handover
 
 **Date:** 2026-06-19 (started 2026-06-18)  
-**Pi:** `pi@192.168.1.130` (password: `dubqengm`; or key alias `ssh merlin400` — dedicated key `~/.ssh/merlin400_ed25519`, password login still enabled as fallback)  
+**Pi:** `pi@<PI_IP_ADDRESS>` (SSH key-based access; password login available as fallback)  
 **Software root:** `~/merlin400-system/`  
 **Upstream repo:** https://github.com/64bandil/merlin400/tree/main  
 **Private repo:** https://github.com/chandz102/merlin400-system  
-**Local checkout:** `/Users/chandler/Documents/Merlin400`  
+**Local checkout:** User's local development directory  
 **Current private repo commit:** `bdfc44d` (`main`, `origin/main`) — `Mark FSM states refactor complete`  
-**Project notes:** `/Users/chandler/projects/merlin400/MERLIN400.md`  
+**Project notes:** Documentation in project folder  
 **Handover rule:** Update this file after every meaningful code change, deploy, verification step, or repo/remotes change.
 
 ---
 
 ## Access (SSH)
 
-From the Mac (`/Users/chandler`):
-- **`ssh merlin400`** — key-based, no password. Alias in `~/.ssh/config` → `pi@192.168.1.130`, key `~/.ssh/merlin400_ed25519` (set up 2026-06-18). `scp`/`ssh merlin400 '<cmd>'` work non-interactively.
-- Fallback: `pi@192.168.1.130` password `dubqengm` (password login still enabled).
+From your development machine:
+- **`ssh merlin400`** — key-based SSH configured in `~/.ssh/config`. `scp`/`ssh merlin400 '<cmd>'` work non-interactively.
+- Fallback: SSH key-based or password login (credentials stored securely)
 
 Deploy pattern: `scp <file> merlin400:/home/pi/merlin400-system/src/...` → `ssh merlin400 'sudo systemctl restart merlin400-system'` → verify `ssh merlin400 'curl -s http://localhost/api/status'` is Ready/idle/pump 0.
 - `__pycache__` is root-owned → syntax-check with `python3 -c "import ast; ast.parse(open(f).read())"` (not `py_compile`).
